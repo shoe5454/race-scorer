@@ -1,11 +1,26 @@
-Navigation
-  - Header
+Component Hierarchy
+-------------------
+Notes:
+Text within parentheses are props, text within curly brackets are state.
+Text starting with on* denotes callbacks for inverse data flow
+Also see the mock HTML designs in the /design/mocks folder
+
+- App {students, races, navPath}
+  - Header (navPath)
   races.html
-   - RaceManager
-     - RaceTable
-  create-race.html
-   - RaceCreator
-     - NewRaceTable
-  record-results.html
-   - ResultsManager
-     - RecordResultsTable
+   - RaceManager (students, races, onAddRace, onAddResults)
+     - RaceTable (students, races, onAddResults)
+       - RaceDetailsRow (students, race, onAddResults)
+     #    - AddResultsButton (race, onAddResults)
+     # - AddRaceButton (onAddRace)
+  add-race.html
+   - AddRaceManager (students, onEditLaneAssignment, onRemoveLaneAssignment, onSaveRace) {laneStudentMap}
+     - AddRaceTable (students, laneStudentMap, onEditLaneAssignment, onRemoveLaneAssignment)
+       - LaneAssignmentRow (students, lane, student, onEditLaneAssignment, onRemoveLaneAssignment)
+     #    - RemoveLaneAssignmentButton (lane, student, onRemoveLaneAssignment)
+     # - SaveRaceButton (laneStudentMap, onSaveRace)
+  add-results.html
+   - AddResultsManager
+     - AddResultsTable
+       - AddResultRow
+     # - SaveResultsButton

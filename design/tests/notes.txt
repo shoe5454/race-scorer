@@ -1,0 +1,68 @@
+RaceManager
+-----------
+
+it("fails gracefully when provided bad input", () => {
+  // Missing races should display a relevant message
+  act(() => {
+    render(<RaceManager students="" onAddRace="" onAddResults="" />, container);
+  });
+  expect
+
+  // Missing students is not ok if there are races, display error
+  act(() => {
+    render(<RaceManager races="" onAddRace="" onAddResults="" />, container);
+  });
+  expect
+
+  // Missing Add Race callback should result in the Add Race button being hidden
+  act(() => {
+    render(<RaceManager students="" races="" onAddResults="" />, container);
+  });
+  expect
+
+  // Missing Add Results callback should display an error
+  act(() => {
+    render(<RaceManager students="" races="" onAddRace="" />, container);
+  });
+  expect
+});
+
+it("displays the races correctly", () => {
+});
+
+
+RaceDetailsRow
+--------------
+
+it("fails gracefully when provided bad input", () => {
+  // Missing students should display an error
+  act(() => {
+    render(<RaceDetails race="" onAddResults="" />, container);
+  });
+  expect
+
+  // Missing race should display an error
+  act(() => {
+    render(<RaceDetails students="" onAddResults="" />, container);
+  });
+  expect
+
+  // Missing Add Results callback should display an error
+  act(() => {
+    render(<RaceDetails race="" students="" />, container);
+  });
+  expect
+});
+
+it("displays the race correctly", () => {
+  // A race without any results should display as In Progress with a Record Results button
+
+  // A race with results should not display as In Progress, and hide the Record Results button
+  
+  // Check Race ID is displayed correctly
+
+  // Check Lanes is displayed correctly
+
+  // Check Results is displayed correctly
+});
+
