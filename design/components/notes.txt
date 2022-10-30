@@ -1,0 +1,11 @@
+Navigation
+  - Header
+  races.html
+   - RaceManager
+     - RaceTable
+  create-race.html
+   - RaceCreator
+     - NewRaceTable
+  record-results.html
+   - ResultsManager
+     - RecordResultsTable
