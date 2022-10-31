@@ -1,7 +1,7 @@
 App
 ---
 
-it("integrates with the expected events and child components", () => {
+it("integrates with the expected child components", () => {
   // navPath = '' should display only RaceManager with correct props
 
   // navPath = '' should display only AddRaceManager with correct props
