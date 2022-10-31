@@ -2,7 +2,7 @@ Component Hierarchy
 -------------------
 Notes:
 Text within parentheses are props, text within curly brackets are state.
-Text starting with on* denotes callbacks for inverse data flow
+Props starting with on* denotes callbacks for inverse data flow
 Also see the mock HTML designs in the /design/mocks folder
 
 - App {students, races, navPath}
@@ -14,7 +14,7 @@ Also see the mock HTML designs in the /design/mocks folder
      #    - AddResultsButton (race, onAddResults)
      # - AddRaceButton (onAddRace)
   add-race.html
-   - AddRaceManager (students, onEditLaneAssignment, onRemoveLaneAssignment, onSaveRace) {laneStudentMap}
+   - AddRaceManager (students, onSaveRace, onCancelAddRace) {laneStudentMap}
      - AddRaceTable (students, laneStudentMap, onEditLaneAssignment, onRemoveLaneAssignment)
        - LaneAssignmentRow (students, lane, student, onEditLaneAssignment, onRemoveLaneAssignment)
      #    - RemoveLaneAssignmentButton (lane, student, onRemoveLaneAssignment)
