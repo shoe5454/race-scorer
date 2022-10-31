@@ -15,12 +15,12 @@ Also see the mock HTML designs in the /design/mocks folder
      # - AddRaceButton (onAddRace)
   add-race.html
    - AddRaceManager (students, onSaveRace, onCancelAddRace) {laneStudentMap}
-     - AddRaceTable (students, laneStudentMap, onEditLaneAssignment, onRemoveLaneAssignment)
-       - LaneAssignmentRow (students, lane, student, onEditLaneAssignment, onRemoveLaneAssignment)
-     #    - RemoveLaneAssignmentButton (lane, student, onRemoveLaneAssignment)
+     - AddRaceTable (students, laneStudentMap, onEditLaneAssignment, onRemoveLane)
+       - LaneAssignmentRow (students, lane, student, onEditLaneAssignment, onRemoveLane)
+     #    - RemoveLaneButton (lane, student, onRemoveLane)
      # - SaveRaceButton (laneStudentMap, onSaveRace)
   add-results.html
-   - AddResultsManager
-     - AddResultsTable
-       - AddResultRow
+   - AddResultsManager (students, race, onSaveResults, onCancelAddResults) {laneResultMap}
+     - AddResultsTable (students, race, laneResultMap, onEditResultAssignment)
+       - ResultAssignmentRow (lane, student, result, onEditResultAssignment)
      # - SaveResultsButton

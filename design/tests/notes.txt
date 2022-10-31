@@ -1,6 +1,39 @@
+App
+---
+
+it("integrates with the expected events and child components", () => {
+  // navPath = '' should display only RaceManager with correct props
+
+  // navPath = '' should display only AddRaceManager with correct props
+
+  // navPath = '' should display only AddResultsManager with correct props
+  
+});
+
+it("initializes state correctly", () => {
+  // navPath should default to ...
+  
+});
+
+it("handles state updates correctly", () => {
+  // Allow navigating to Add Race 'screen' (onAddRace)
+  
+  // Allow navigating to Add Results 'screen' (onAddResults)
+  
+  // Add a new entry to the end of races (onSaveRace)
+  
+  // Allow navigating back to Races screen from Add Race screen (onCancelAddRace)
+  
+  // Add results to an existing race in races (onSaveResults)
+  
+  // Allow navigating back to Races screen from Add Results screen (onCancelAddResults)
+  
+});
+
+
 Header
 ------
-it("fails gracefully when provided bad input", () => {
+it("fails gracefully when provided bad props", () => {
   // Missing navPath should display error
   act(() => {
     render(<Header />, container);
@@ -15,33 +48,21 @@ it("fails gracefully when provided bad input", () => {
 });
 
 it("displays the header correctly", () => {
-  // navPath = '' should display only RaceManager and disable the Races tab
+  // navPath = '' should disable the Races tab
 
-  // navPath = '' should display only AddRaceManager and enable the Races tab
+  // navPath = '' should disable the Races tab
 
-  // navPath = '' should display only AddResultsManager and enable the Races tab
+  // navPath = '' should enable the Races tab
 });
 
 
 RaceManager
 -----------
 
-it("fails gracefully when provided bad input", () => {
-  // Missing races should display a relevant message and hide RaceTable
-  act(() => {
-    render(<RaceManager students="" onAddRace="" onAddResults="" />, container);
-  });
-  expect
-
+it("fails gracefully when provided bad props", () => {
   // Missing students is not ok if there are races, display error and hide RaceTable
   act(() => {
     render(<RaceManager races="" onAddRace="" onAddResults="" />, container);
-  });
-  expect
-
-  // Missing Add Race callback should hide the Add Race button and display RaceTable with the correct props
-  act(() => {
-    render(<RaceManager students="" races="" onAddResults="" />, container);
   });
   expect
 
@@ -50,6 +71,21 @@ it("fails gracefully when provided bad input", () => {
     render(<RaceManager students="" races="" onAddRace="" />, container);
   });
   expect
+});
+
+it("handles optional props correctly", () => {
+  // If races is not present, display a relevant message and hide RaceTable
+  act(() => {
+    render(<RaceManager students="" onAddRace="" onAddResults="" />, container);
+  });
+  expect
+
+  // If Add Race callback is not present, hide the Add Race button and display RaceTable with the correct props
+  act(() => {
+    render(<RaceManager students="" races="" onAddResults="" />, container);
+  });
+  expect
+
 });
 
 it("integrates with the expected events and child components", () => {
@@ -63,22 +99,24 @@ it("integrates with the expected events and child components", () => {
 RaceTable
 ---------
 
-it("fails gracefully when provided bad input", () => {
-  // Missing students should display error instead of row data
+it("fails gracefully when provided bad props", () => {
+  // Missing students should display error instead of table
   act(() => {
     render(<RaceTable races="" onAddResults="" />, container);
   });
   expect
 
-  // Missing races should display table header with 0 RaceDetailsRows
-  act(() => {
-    render(<RaceDetails students="" onAddResults="" />, container);
-  });
-  expect
-
   // Missing Add Results callback should display error instead of table
   act(() => {
-    render(<RaceDetails races="" students="" />, container);
+    render(<RaceTable races="" students="" />, container);
+  });
+  expect
+});
+
+it("handles optional props correctly", () => {
+  // If races is not present, display table header with 0 RaceDetailsRows
+  act(() => {
+    render(<RaceTable students="" onAddResults="" />, container);
   });
   expect
 });
@@ -92,7 +130,7 @@ it("integrates with the expected child components", () => {
 RaceDetailsRow
 --------------
 
-it("fails gracefully when provided bad input", () => {
+it("fails gracefully when provided bad props", () => {
   // Missing students should display error instead of row data
   act(() => {
     render(<RaceDetailsRow race="" onAddResults="" />, container);
@@ -117,7 +155,7 @@ it("fails gracefully when provided bad input", () => {
 
 });
 
-it("displays the race correctly", () => {
+it("displays the race details correctly", () => {
   // A race without any results should display as In Progress with a Record Results button
 
   // A race with results should not display as In Progress, and hide the Record Results button
@@ -139,8 +177,8 @@ it("integrates with the expected events", () => {
 AddRaceManager
 --------------
 
-it("fails gracefully when provided bad input", () => {
-  // Missing students is should display error and hide AddRaceTable
+it("fails gracefully when provided bad props", () => {
+  // Missing students should display error and hide AddRaceTable
   act(() => {
     render(<AddRaceManager onSaveRace="" onCancelAddRace="" />, container);
   });
@@ -163,7 +201,9 @@ it("integrates with the expected events and child components", () => {
   // Save Race button is hooked to the onSaveRace callback
   
   // Cancel button is hooked to the onCancelAddRace callback
-
+  
+  // Add Lane button is hooked to the onAddLane
+  
   // AddRaceTable is present with the students from props and laneStudentMap from state
   
 });
@@ -173,26 +213,34 @@ it("initializes state correctly", () => {
   
 });
 
+it("handles state updates correctly", () => {
+  // onAddLane adds a blank entry to the end of laneStudentMap
+  
+  // onEditLaneAssignment updates a specific entry in laneStudentMap accordingly
+  
+  // onRemoveLane removes the specified entry from laneStudentMap
+});
+
 
 AddRaceTable
 ------------
 
-it("fails gracefully when provided bad input", () => {
-  // Missing students should display error instead of row data
+it("fails gracefully when provided bad props", () => {
+  // Missing students should display error instead of table
   act(() => {
-    render(<AddRaceTable laneStudentMap="" onEditLaneAssignment="" onRemoveLaneAssignment=""/>, container);
+    render(<AddRaceTable laneStudentMap="" onEditLaneAssignment="" onRemoveLane=""/>, container);
   });
   expect
 
-  // Missing laneStudentMap should display error instead of row data
+  // Missing laneStudentMap should display error instead of table
   act(() => {
-    render(<AddRaceTable students="" onEditLaneAssignment="" onRemoveLaneAssignment=""/>, container);
+    render(<AddRaceTable students="" onEditLaneAssignment="" onRemoveLane=""/>, container);
   });
   expect
 
   // Missing Edit Lane callback should display error instead of table
   act(() => {
-    render(<AddRaceTable students="" laneStudentMap="" onRemoveLaneAssignment=""/>, container);
+    render(<AddRaceTable students="" laneStudentMap="" onRemoveLane=""/>, container);
   });
   expect
 
@@ -208,7 +256,7 @@ it("integrates with the expected child components", () => {
   
   // LaneAssignmentRow is present with the students from props
 
-  // LaneAssignmentRow is present without onRemoveLaneAssignment from props if the size of laneStudentMap is less than 2
+  // LaneAssignmentRow is present with onRemoveLane from props only if the size of laneStudentMap is >= 2
 
 });
 
@@ -216,4 +264,198 @@ it("integrates with the expected child components", () => {
 LaneAssignmentRow
 -----------------
 
+it("fails gracefully when provided bad props", () => {
+  // Missing students should display error instead of row data
+  act(() => {
+    render(<LaneAssignmentRow lane="" student="" onEditLaneAssignment="" onRemoveLane="" />, container);
+  });
+  expect
+
+  // Missing Edit callback should display error instead of row data
+  act(() => {
+    render(<LaneAssignmentRow students="" lane="" student="" onRemoveLane="" />, container);
+  });
+  expect
+
+  // Invalid students model should display error in Student column
+
+  // Invalid student model should display error in Student column
+
+});
+
+it("handles optional props correctly", () => {
+  // If lane is not present, display row and allow lane edits to feed into onEditLaneAssignment
+  act(() => {
+    render(<LaneAssignmentRow students="" student="" onEditLaneAssignment="" onRemoveLane="" />, container);
+  });
+  expect
+
+  // If student is not present, display row and allow student selection to feed into onEditLaneAssignment
+  act(() => {
+    render(<LaneAssignmentRow students="" lane="" onEditLaneAssignment="" onRemoveLane="" />, container);
+  });
+  expect
+
+  // If Remove callback is not present, display row without Remove Lane button
+  act(() => {
+    render(<LaneAssignmentRow students="" lane="" student="" onEditLaneAssignment="" />, container);
+  });
+  expect  
+});
+
+it("displays the lane details correctly", () => {
+  // Check Lane is displayed correctly
+
+  // Check Student is displayed correctly
+
+  // Check Actions is displayed correctly
+});
+
+it("integrates with the expected events", () => {
+  // Lane and Student changes are hooked to the onEditLaneAssignment callback with the correct parameters
+  
+  // Remove Lane button is hooked to the onRemoveLane callback with the correct parameters
+});
+
+
+AddResultsManager
+-----------------
+
+it("fails gracefully when provided bad props", () => {
+  // Missing students should display error and hide AddResultsTable
+  act(() => {
+    render(<AddResultsManager race="" onSaveResults="" onCancelAddResults="" />, container);
+  });
+  expect
+
+  // Missing race should display error and hide AddResultsTable
+  act(() => {
+    render(<AddResultsManager students="" onSaveResults="" onCancelAddResults="" />, container);
+  });
+  expect
+
+  // Missing Save Results callback should display error and hide AddResultsTable
+  act(() => {
+    render(<AddResultsManager students="" race="" onCancelAddResults="" />, container);
+  });
+  expect
+
+  // Missing Cancel callback should display error and hide AddResultsTable
+  act(() => {
+    render(<AddResultsManager students="" race="" onSaveResults="" />, container);
+  });
+  expect
+  
+  // Invalid race model should display error and hide AddResultsTable
+
+});
+
+it("integrates with the expected events and child components", () => {
+  // Save Race button is hooked to the onSaveResults callback
+  
+  // Cancel button is hooked to the onCancelAddResults callback
+
+  // AddResultsTable is present with the students and race from props and laneResultMap from state
+  
+});
+
+it("initializes state correctly", () => {
+  // laneResultMap should be built from race lane details, and results should default to empty
+  
+});
+
+it("handles state updates correctly", () => {
+  // onEditResultAssignment update the result of the specified entry in laneResultMap accordingly
+  
+});
+
+
+AddResultsTable
+---------------
+
+it("fails gracefully when provided bad props", () => {
+  // Missing students should display error instead of table
+  act(() => {
+    render(<AddResultsTable race="" laneResultMap="" onEditResultAssignment="" />, container);
+  });
+  expect
+
+  // Missing race should display error instead of table
+  act(() => {
+    render(<AddResultsTable students="" laneResultMap="" onEditResultAssignment="" />, container);
+  });
+  expect
+
+  // Missing laneResultMap should display error instead of table
+  act(() => {
+    render(<AddResultsTable students="" race="" onEditResultAssignment="" />, container);
+  });
+  expect
+
+  // Missing Edit callback should display error instead of table
+  act(() => {
+    render(<AddResultsTable students="" race="" laneResultMap="" />, container);
+  });
+  expect
+});
+
+it("integrates with the expected child components", () => {
+  // ResultAssignmentRow is present for each laneResultMap entry with the expected lane, student and result props
+  
+  // ResultAssignmentRow is present with the students from props
+
+  // ResultAssignmentRow is present with onEditResultAssignment from props
+
+});
+
+
+ResultAssignmentRow
+-------------------
+
+it("fails gracefully when provided bad props", () => {
+  // Missing lane should display error instead of row data
+  act(() => {
+    render(<ResultAssignmentRow student="" result="" onEditResultAssignment="" />, container);
+  });
+  expect
+
+  // Missing student should display error instead of row data
+  act(() => {
+    render(<ResultAssignmentRow lane="" result="" onEditResultAssignment="" />, container);
+  });
+  expect
+
+  // Missing Edit callback should display error instead of row data
+  act(() => {
+    render(<ResultAssignmentRow lane="" student="" result="" />, container);
+  });
+  expect
+
+  // Invalid student model should display error in Student column
+
+  // Invalid result should display error in Student column
+
+});
+
+it("handles optional props correctly", () => {
+  // If result is not present, display row and allow result edits to feed into onEditResultAssignment
+  act(() => {
+    render(<ResultAssignmentRow student="" lane="" onEditResultAssignment="" />, container);
+  });
+  expect
+
+});
+
+it("displays the result details correctly", () => {
+  // Check Lane is displayed correctly
+
+  // Check Student is displayed correctly
+
+  // Check Result is displayed correctly
+});
+
+it("integrates with the expected events", () => {
+  // Result changes are hooked to the onEditResultAssignment callback with the correct parameters
+  
+});
 
