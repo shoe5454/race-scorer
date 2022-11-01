@@ -11,7 +11,7 @@ const dummyStudents: Student[] = [
 it("fails gracefully when provided bad props", () => {
   // If races is empty, display table header with 0 RaceDetailsRows
   const {container} = render(<RaceTable races={[]} students={dummyStudents} onAddResults={jest.fn()} />);
-  const raceDetailRow = within(container).queryByTestId("race-table-race-details-row");
+  const raceDetailRow = within(container).queryByTestId("race-table-race-details");
   expect(raceDetailRow).toBeNull();
 });
 
@@ -21,7 +21,7 @@ it("integrates with the expected child components", () => {
     {lanes: []}, {lanes: []}, {lanes: []}, {lanes: []}
   ];
   const {container} = render(<RaceTable races={races} students={dummyStudents} onAddResults={jest.fn()} />);
-  const raceDetailRow = within(container).queryAllByTestId("race-table-race-details-row");
+  const raceDetailRow = within(container).queryAllByTestId("race-table-race-details");
   expect(raceDetailRow).toHaveLength(4);
   
 });

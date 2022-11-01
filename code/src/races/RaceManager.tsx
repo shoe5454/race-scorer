@@ -5,7 +5,7 @@ type ComponentProps = {
   students: Student[];
   races: Race[];
   onAddRace?: () => void;
-  onAddResults: (race: Race, results: number[]) => void;
+  onAddResults: (race: Race) => void;
 }; 
 
 function RaceManager(props: ComponentProps) {

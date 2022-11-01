@@ -2,6 +2,7 @@ import React from 'react';
 import { act, render, screen, within } from '@testing-library/react';
 import { Race, Student } from '../common/models';
 import { idText } from 'typescript';
+import RaceDetailsRow from './RaceDetails';
 
 const students: Student[] = [
   {name: 'Shu'}, {name: 'Jennie'}, {name: 'Benji'}, {name: 'Lukas'}
@@ -12,6 +13,8 @@ it("fails gracefully when provided bad props", () => {
   // Invalid students model should display error in Lane and finished Results column
 
   // Invalid race model should display error
+
+  // Invalid results should display error
 });
 */
 
@@ -36,29 +39,29 @@ it("displays the race details correctly", () => {
   };
 
   // A race without any results should display as In Progress with a Record Results button
-  ({container} = render(<RaceDetailsRow students={students} race={raceWithNoResults} onAddResults={jest.fn()} />));
-  results = within(container).getByTestId("race-details-row-results");
-  addResultsButton = within(container).getByTestId("race-details-row-add-results-button");
+  ({container} = render(<table><tbody><tr><RaceDetailsRow students={students} race={raceWithNoResults} onAddResults={jest.fn()} /></tr></tbody></table>));
+  results = within(container).getByTestId("race-details-results");
+  addResultsButton = within(container).getByTestId("race-details-add-results-button");
   expect(results).toHaveTextContent("In Progress");
   expect(addResultsButton).toBeVisible();
 
   // A race with results should not display as In Progress, and hide the Record Results button
-  ({container} = render(<RaceDetailsRow students={students} race={raceWithResults} onAddResults={jest.fn()} />));
-  results = within(container).getByTestId("race-details-row-results");
-  addResultsButton = within(container).getByTestId("race-details-row-add-results-button");
+  ({container} = render(<table><tbody><tr><RaceDetailsRow students={students} race={raceWithResults} onAddResults={jest.fn()} /></tr></tbody></table>));
+  results = within(container).getByTestId("race-details-results");
+  addResultsButton = within(container).queryByTestId("race-details-add-results-button");
   expect(results).not.toHaveTextContent("In Progress");
-  expect(addResultsButton).not.toBeVisible();
+  expect(addResultsButton).toBeNull();
   
   /*// Check Race ID is displayed correctly
-  ({container} = render(<RaceDetailsRow students={students} race={raceWithNoResults} onAddResults={jest.fn()} />));
-  const ids = within(container).getAllByTestId("race-details-row-id");
+  ({container} = render(<table><tbody><tr><RaceDetailsRow students={students} race={raceWithNoResults} onAddResults={jest.fn()} /></tr></tbody></table>));
+  const ids = within(container).getAllByTestId("race-details-id");
   for (let i = 0; i < ids.length; i++) {
     expect(ids[i]).toHaveTextContent((i+1).toString());
   }*/
 
   // Check Lanes is displayed correctly
-  ({container} = render(<RaceDetailsRow students={students} race={raceWithNoResults} onAddResults={jest.fn()} />));
-  const lanes = within(container).getAllByTestId("race-details-row-lane");
+  ({container} = render(<table><tbody><tr><RaceDetailsRow students={students} race={raceWithNoResults} onAddResults={jest.fn()} /></tr></tbody></table>));
+  const lanes = within(container).getAllByTestId("race-details-lane");
   expect(lanes.length).toBe(4);
   expect(lanes[0]).toHaveTextContent("Lane1 - Lukas");
   expect(lanes[1]).toHaveTextContent("Lane2 - Benji");
@@ -66,8 +69,8 @@ it("displays the race details correctly", () => {
   expect(lanes[3]).toHaveTextContent("Lane4 - Shu");
 
   // Check Results is displayed correctly
-  ({container} = render(<RaceDetailsRow students={students} race={raceWithResults} onAddResults={jest.fn()} />));
-  results = within(container).getAllByTestId("race-details-row-result");
+  ({container} = render(<table><tbody><tr><RaceDetailsRow students={students} race={raceWithResults} onAddResults={jest.fn()} /></tr></tbody></table>));
+  results = within(container).getAllByTestId("race-details-result");
   expect(results.length).toBe(4);
   expect(results[0]).toHaveTextContent("Benji");
   expect(results[1]).toHaveTextContent("Shu");
@@ -76,19 +79,19 @@ it("displays the race details correctly", () => {
 });
 
 it("integrates with the expected events", () => {
-  const raceWithResults: Race = {
+  const raceWithNoResults: Race = {
     lanes: [
-      {name: 'Lane1', student: students[3], result: 3}, 
-      {name: 'Lane2', student: students[2], result: 1}, 
-      {name: 'Lane3', student: students[1], result: 4}, 
-      {name: 'Lane4', student: students[0], result: 2}, 
+      {name: 'Lane1', student: students[3]}, 
+      {name: 'Lane2', student: students[2]}, 
+      {name: 'Lane3', student: students[1]}, 
+      {name: 'Lane4', student: students[0]}, 
     ]
   };
 
   // Add Results button is hooked to the onAddResults callback
   const mockOnAddResults = jest.fn();
-  const {container} = render(<RaceDetailsRow students={students} races={raceWithResults} onAddResults={mockOnAddResults} />);
-  const addResultsButton = within(container).getByTestId("race-details-row-add-results-button");
+  const {container} = render(<table><tbody><tr><RaceDetailsRow students={students} race={raceWithNoResults} onAddResults={mockOnAddResults} /></tr></tbody></table>);
+  const addResultsButton = within(container).getByTestId("race-details-add-results-button");
   addResultsButton.click();
   expect(mockOnAddResults).toHaveBeenCalledTimes(1);
 });

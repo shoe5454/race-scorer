@@ -1,20 +1,17 @@
+import React from "react";
 import { Student, Race } from "../common/models";
+import RaceDetails from "./RaceDetails";
 
 type ComponentProps = {
   races: Race[];
   students: Student[];
-  onAddResults: (race: Race, results: number[]) => void
+  onAddResults: (race: Race) => void
 }; 
 
 function RaceTable(props: ComponentProps) {
   const rows = props.races.map((race, index) =>
-    <tr data-testid="race-table-race-details-row" key={index}>
-      <td data-testid="race-details-row-lanes">
-        <div data-testid="race-details-row-lane">1 - Ellie</div>
-        <div data-testid="race-details-row-lane">2 - David</div>
-      </td>
-      <td data-testid="race-details-row-results">In Progress</td>
-      <td><button data-testid="race-details-row-add-results-button">Add Results</button></td>
+    <tr data-testid="race-table-race-details" key={index}>
+      <RaceDetails race={race} students={props.students} onAddResults={props.onAddResults} />
     </tr>
   );
 
