@@ -1,9 +1,11 @@
+import { Race } from "./common/models";
+
 class AppStateManager {
   navPath: string;
-  students: number[];
-  races: number[];
+  students: Student[];
+  races: Race[];
 
-  constructor(navPath = 'races', students: number[] = [], races: number[] = []) {
+  constructor(navPath = 'races', students: Student[] = [], races: Race[] = []) {
     this.navPath = navPath;
     this.students = students;
     this.races = races;
