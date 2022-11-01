@@ -5,7 +5,7 @@ type ComponentProps = {
   students: Student[];
   races: Race[];
   onAddRace?: () => void;
-  onAddResults: (race: Race) => void;
+  onAddResults: (race: Race, results: number[]) => void;
 }; 
 
 function RaceManager(props: ComponentProps) {
@@ -21,7 +21,7 @@ function RaceManager(props: ComponentProps) {
   if (props.races.length == 0) {
     message = <div>No races</div>;
   } else {
-    raceTable = <div data-testid="race-manager-race-table"><RaceTable /></div>;
+    raceTable = <div data-testid="race-manager-race-table"><RaceTable races={props.races} students={props.students} onAddResults={props.onAddResults} /></div>;
   }
   if (props.onAddRace) {
     addRaceButton = <button data-testid="race-manager-add-race-button" onClick={props.onAddRace}>Add Race</button>;
