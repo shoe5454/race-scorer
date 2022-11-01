@@ -29,7 +29,7 @@ function Header(props: ComponentProps) {
           [ Error: Invalid navPath ]
         </header>
       );    
-    }
+  }
 }
 
 export default Header;

@@ -1,6 +1,11 @@
 AppStateManager
 ---------------
 
+it("fails when provided bad constructor input", () => {
+  // navPath = 'foobar' should throw error
+
+});
+
 it("initializes state correctly", () => {
   // navPath should default to ...
   

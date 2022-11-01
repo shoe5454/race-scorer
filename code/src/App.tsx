@@ -1,24 +1,53 @@
 import React from 'react';
-import logo from './logo.svg';
+import AddRaceManager from './add-race/AddRaceManager';
+import AddResultsManager from './add-results/AddResultsManager';
 import './App.css';
+import AppStateManager from './AppStateManager';
+import Header from './Header';
+import RaceManager from './races/RaceManager';
 
-function App() {
+type ComponentProps = {
+  stateManager: AppStateManager;
+};
+
+function App(props: ComponentProps) {
+  let child;
+  switch (props.stateManager.navPath) {
+    case "races":
+      child = (
+        <div data-testid="app-race-manager">
+          <RaceManager />
+        </div>
+      );
+      break;
+    case "add-race":
+      child = (
+        <div data-testid="app-add-race-manager">
+          <AddRaceManager />
+        </div>
+      );
+      break;
+    case "add-results":
+      child = (
+        <div data-testid="app-add-results-manager">
+          <AddResultsManager />
+        </div>
+      );
+      break;
+    default:
+      child = (
+        <div>
+          Error: Invalid navPath
+        </div>
+      );    
+  }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <div data-testid="app-header">
+        <Header navPath={props.stateManager.navPath} onNavigateRaces={props.stateManager.onNavigateRaces} />
+      </div>
+      {child}
     </div>
   );
 }
