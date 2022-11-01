@@ -5,6 +5,10 @@ export type Race = {
 }
 
 export type Lane = {
-  result: number;
+  result?: number;
+}
+
+export type Student = {
+  name: string;
 }
 

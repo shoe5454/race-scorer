@@ -40,7 +40,8 @@ it("integrates with the expected child components", () => {
   expect(container).not.toHaveTextContent("Error: Invalid navPath");
 
   // stateManager.navPath = 'foobar' should display only error
-  stateManager = new AppStateManager("foobar");
+  stateManager = new AppStateManager();
+  stateManager.navPath = 'foobar';
   ({container} = render(<App stateManager={stateManager} />));
   raceManager = within(container).queryByTestId("app-race-manager");
   addRaceManager = within(container).queryByTestId("app-add-race-manager");
