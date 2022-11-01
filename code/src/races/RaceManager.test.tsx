@@ -11,30 +11,22 @@ const dummyStudents: Student[] = [
 ];
 
 it("fails gracefully when provided bad props", () => {
-  let container, raceTable;
-
-  // Missing students is not ok if there are races, display error and hide RaceTable
-  ({container} = render(<RaceManager races={dummyRaces} onAddRace={jest.fn()} onAddResults={jest.fn()} />));
-  raceTable = within(container).queryByTestId("race-manager-race-table");
+  // Empty students is not ok if there are races, display error and hide RaceTable
+  const {container} = render(<RaceManager students={[]} races={dummyRaces} onAddRace={jest.fn()} onAddResults={jest.fn()} />);
+  const raceTable = within(container).queryByTestId("race-manager-race-table");
   expect(raceTable).toBeNull();
   expect(container).toHaveTextContent("Error: Missing students");
-
-  // Missing Add Results callback should display error and hide RaceTable
-  render(<RaceManager students={dummyStudents} races={dummyRaces} onAddRace={jest.fn()} />);
-  raceTable = within(container).queryByTestId("race-manager-race-table");
-  expect(raceTable).toBeNull();
-  expect(container).toHaveTextContent("Error: Missing callback");
 });
 
 it("handles optional props correctly", () => {
   let container, raceTable, addRaceButton;
 
-  // If races is not present, display a relevant message and hide RaceTable
-  ({container} = render(<RaceManager students={dummyStudents} onAddRace={jest.fn()} onAddResults={jest.fn()} />));
+  // If races is empty, display a relevant message, and hide RaceTable
+  ({container} = render(<RaceManager students={dummyStudents} races={[]} onAddRace={jest.fn()} onAddResults={jest.fn()} />));
   raceTable = within(container).queryByTestId("race-manager-race-table");
   addRaceButton = within(container).queryByTestId("race-manager-add-race-button");
   expect(raceTable).toBeNull();
-  expect(addRaceButton).not.toBeVisible();
+  expect(addRaceButton).toBeVisible();
   expect(container).toHaveTextContent("No races");
 
   // If Add Race callback is not present, hide the Add Race button and display RaceTable
@@ -42,13 +34,20 @@ it("handles optional props correctly", () => {
   raceTable = within(container).queryByTestId("race-manager-race-table");
   addRaceButton = within(container).queryByTestId("race-manager-add-race-button");
   expect(raceTable).toBeVisible();
-  expect(addRaceButton).not.toBeVisible();
+  expect(addRaceButton).toBeNull();
+
+  // If Add Race callback is present, show the Add Race button and display RaceTable
+  ({container} = render(<RaceManager students={dummyStudents} races={dummyRaces} onAddRace={jest.fn()} onAddResults={jest.fn()} />));
+  raceTable = within(container).queryByTestId("race-manager-race-table");
+  addRaceButton = within(container).queryByTestId("race-manager-add-race-button");
+  expect(raceTable).toBeVisible();
+  expect(addRaceButton).toBeVisible();
 });
 
 it("integrates with the expected events and child components", () => {
   // Add Race button is hooked to the onAddRace callback
   const mockOnAddRace = jest.fn();
-  const {container} = render(<RaceManager students={dummyStudents} races={dummyRaces} onAddResults={mockOnAddRace} />);
+  const {container} = render(<RaceManager students={dummyStudents} races={dummyRaces} onAddRace={mockOnAddRace} onAddResults={jest.fn()} />);
   const addRaceButton = within(container).getByTestId("race-manager-add-race-button");
   addRaceButton.click();
   expect(mockOnAddRace).toHaveBeenCalledTimes(1);  

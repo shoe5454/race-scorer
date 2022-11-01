@@ -3,6 +3,7 @@ import AddRaceManager from './add-race/AddRaceManager';
 import AddResultsManager from './add-results/AddResultsManager';
 import './App.css';
 import AppStateManager from './AppStateManager';
+import { Race } from './common/models';
 import Header from './Header';
 import RaceManager from './races/RaceManager';
 
@@ -16,7 +17,7 @@ function App(props: ComponentProps) {
     case "races":
       child = (
         <div data-testid="app-race-manager">
-          <RaceManager />
+          <RaceManager races={props.stateManager.races} students={props.stateManager.students} onAddRace={props.stateManager.onAddRace} onAddResults={props.stateManager.onAddResults} />
         </div>
       );
       break;
