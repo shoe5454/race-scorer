@@ -6,6 +6,7 @@ export type Race = {
 
 export type Lane = {
   name: string;
+  student: Student;
   result?: number;
 }
 

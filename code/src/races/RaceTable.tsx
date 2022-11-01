@@ -9,10 +9,12 @@ type ComponentProps = {
 function RaceTable(props: ComponentProps) {
   const rows = props.races.map((race, index) =>
     <tr data-testid="race-table-race-details-row" key={index}>
-      <td>{index+1}</td>
-      <td>1 - Ellie<br/>2 - David</td>
-      <td>In Progress</td>
-      <td><button>Add Results</button></td>
+      <td data-testid="race-details-row-lanes">
+        <div data-testid="race-details-row-lane">1 - Ellie</div>
+        <div data-testid="race-details-row-lane">2 - David</div>
+      </td>
+      <td data-testid="race-details-row-results">In Progress</td>
+      <td><button data-testid="race-details-row-add-results-button">Add Results</button></td>
     </tr>
   );
 
@@ -20,7 +22,6 @@ function RaceTable(props: ComponentProps) {
     <table>
       <thead>
         <tr>
-          <th>Race ID</th>
           <th>Lanes</th>
           <th>Results (Winner First)</th>
           <th>Actions</th>
