@@ -17,31 +17,31 @@ class AppStateManager {
     this.races = races;
   }
 
-  onNavigateRaces() {
+  onNavigateRaces = () => {
     this.navPath = 'races';
   }
 
-  onAddRace() {
+  onAddRace = () => {
     this.navPath = 'add-race';
   }
 
-  onAddResults(race: Race) {
+  onAddResults = (race: Race) => {
     this.navPath = 'add-results';
   }
 
-  onCancelAddRace() {
+  onCancelAddRace = () => {
     this.navPath = 'races';
   }
 
-  onCancelAddResults() {
+  onCancelAddResults = () => {
     this.navPath = 'races';
   }
 
-  onSaveRace(race: Race) {
+  onSaveRace = (race: Race) => {
     this.races.push(race);
   }
 
-  onSaveResults(existingRace: Race, results: number[]) {
+  onSaveResults = (existingRace: Race, results: number[]) => {
     const foundRace = this.races.find(race => race === existingRace);
 
     // Validate

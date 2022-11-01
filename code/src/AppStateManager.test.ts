@@ -1,8 +1,11 @@
 import React from 'react';
 import { render, screen, within } from '@testing-library/react';
-import App from './App';
 import AppStateManager from './AppStateManager';
-import { Race } from './common/models';
+import { Race, Student } from './common/models';
+
+const dummyStudent: Student = {
+  name: 'Shu'
+}
 
 it("fails when provided bad constructor input", () => {
   // navPath = 'foobar' should throw error
@@ -70,12 +73,12 @@ it("handles onSaveRace correctly", () => {
 });
 
 it("handles onSaveResults correctly", () => {
-  let stateManager: AppStateManager, existingRace: Race;
+  let stateManager: AppStateManager, existingRace: Race, nonExistentRace: Race;
 
   // Add results to an existing race in races (onSaveResults)
   existingRace = {
     lanes: [
-      {}, {},
+      {name: 'Lane1', student: dummyStudent}, {name: 'Lane2', student: dummyStudent},
     ]
   };
   stateManager = new AppStateManager('add-race', [], [existingRace]);
@@ -87,7 +90,7 @@ it("handles onSaveResults correctly", () => {
   // Adding invalid results should throw error
   existingRace = {
     lanes: [
-      {}, {},
+      {name: 'Lane1', student: dummyStudent}, {name: 'Lane2', student: dummyStudent},
     ]
   };
   stateManager = new AppStateManager('add-race', [], [existingRace]);
@@ -110,12 +113,12 @@ it("handles onSaveResults correctly", () => {
   // Adding results to a non-existent race should throw an error
   existingRace = {
     lanes: [
-      {}, {},
+      {name: 'Lane1', student: dummyStudent}, {name: 'Lane2', student: dummyStudent},
     ]
   };
-  const nonExistentRace = {
+  nonExistentRace = {
     lanes: [
-      {}, {},
+      {name: 'Lane1', student: dummyStudent}, {name: 'Lane2', student: dummyStudent},
     ]
   }
   stateManager = new AppStateManager('add-race', [], [existingRace]);
