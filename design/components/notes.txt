@@ -6,7 +6,7 @@ Props starting with on* denotes callbacks for inverse data flow
 Also see the mock HTML designs in the /design/mocks folder
 
 - App {students, races, navPath}
-  - Header (navPath)
+  - Header (navPath, onNavigateRaces)
   races.html
    - RaceManager (students, races, onAddRace, onAddResults)
      - RaceTable (students, races, onAddResults)

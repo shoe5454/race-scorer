@@ -1,14 +1,5 @@
-App
----
-
-it("integrates with the expected child components", () => {
-  // navPath = '' should display only RaceManager with correct props
-
-  // navPath = '' should display only AddRaceManager with correct props
-
-  // navPath = '' should display only AddResultsManager with correct props
-  
-});
+AppStateManager
+---------------
 
 it("initializes state correctly", () => {
   // navPath should default to ...
@@ -20,14 +11,32 @@ it("handles state updates correctly", () => {
   
   // Allow navigating to Add Results 'screen' (onAddResults)
   
-  // Add a new entry to the end of races (onSaveRace)
-  
   // Allow navigating back to Races screen from Add Race screen (onCancelAddRace)
   
-  // Add results to an existing race in races (onSaveResults)
+  // Allow navigating back to Races screen from the Header (onNavigateRaces)
   
   // Allow navigating back to Races screen from Add Results screen (onCancelAddResults)
   
+  // Add a new entry to the end of races (onSaveRace)
+
+  // Add results to an existing race in races (onSaveResults)
+  
+});
+
+
+App
+---
+
+it("integrates with the expected child components", () => {
+  // navPath = 'races' should display only RaceManager with correct props
+
+  // navPath = 'add-race' should display only AddRaceManager with correct props
+
+  // navPath = 'add-results' should display only AddResultsManager with correct props
+  
+  // navPath = 'foobar' should display error
+
+  // Should display header
 });
 
 
@@ -53,6 +62,11 @@ it("displays the header correctly", () => {
   // navPath = '' should disable the Races tab
 
   // navPath = '' should enable the Races tab
+});
+
+it("integrates with the expected events and child components", () => {
+  // Races link is hooked to the onNavigateRaces callback
+  
 });
 
 
