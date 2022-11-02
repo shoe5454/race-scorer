@@ -11,7 +11,7 @@ const root = ReactDOM.createRoot(
 const stateManager = new AppStateManager();
 root.render(
   <React.StrictMode>
-    <App stateManager={stateManager} />
+    <App initialNavPath="races" />
   </React.StrictMode>
 );
 

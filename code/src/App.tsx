@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useReducer } from 'react';
 import AddRaceManager from './add-race/AddRaceManager';
 import AddResultsManager from './add-results/AddResultsManager';
 import './App.css';
@@ -6,14 +6,17 @@ import AppStateManager from './AppStateManager';
 import { Race } from './common/models';
 import Header from './Header';
 import RaceManager from './races/RaceManager';
+import { navReducer } from './reducers';
 
 type ComponentProps = {
-  stateManager: AppStateManager;
+  initialNavPath: string;
 };
 
 function App(props: ComponentProps) {
+  const [navState, dispatch] = useReducer(navReducer, { navPath: props.initialNavPath });
+
   let child;
-  switch (props.stateManager.navPath) {
+  switch (navState.navPath) {
     case "races":
       child = (
         <div data-testid="app-race-manager">
@@ -46,7 +49,7 @@ function App(props: ComponentProps) {
   return (
     <div className="App">
       <div data-testid="app-header">
-        <Header navPath={props.stateManager.navPath} onNavigateRaces={props.stateManager.onNavigateRaces} />
+        <Header navPath={navState.navPath} onNavigateRaces={props.stateManager.onNavigateRaces} />
       </div>
       {child}
     </div>

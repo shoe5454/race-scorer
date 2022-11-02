@@ -2,39 +2,40 @@ import React from 'react';
 import { render, screen, within } from '@testing-library/react';
 import AppStateManager from './AppStateManager';
 import { Race, Student } from './common/models';
+import { NavState, navReducer, NavAction } from './reducers';
 
 const dummyStudent: Student = {
   name: 'Shu'
 }
 
 test("navReducer allows valid navPaths", () => {
-  let action, result;
+  let action: NavAction, result: NavState;
 
   // Allow navigating to Add Race path
   action = { navPath: 'add-race' };
-  result = navReducer({}, action);
+  result = navReducer({navPath: 'races'}, action);
   expect(result.navPath).toBe('add-race');  
   
   // Allow navigating to Add Results path
   action = { navPath: 'add-results' };
-  result = navReducer({}, action);
+  result = navReducer({navPath: 'races'}, action);
   expect(result.navPath).toBe('add-results');  
   
   // Allow navigating back to Races path from Add Race path
   action = { navPath: 'races' };
-  result = navReducer({ navPath: 'add-race' }, action);
+  result = navReducer({navPath: 'add-race'}, action);
   expect(result.navPath).toBe('races');  
 
   // Allow navigating back to Races path from Add Results path
   action = { navPath: 'races' };
-  result = navReducer({ navPath: 'add-results' }, action);
+  result = navReducer({navPath: 'add-results'}, action);
   expect(result.navPath).toBe('races');  
 });
 
 test("navReducer does not allow invalid navPaths", () => {
   // navPath = 'foobar' should not be allowed
   const action = { navPath: 'foobar' };
-  const result = navReducer({}, action);
+  const result = navReducer({navPath: 'races'}, action);
   expect(result.navPath).toBe('foobar');  
 });
 
