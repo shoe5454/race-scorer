@@ -3,15 +3,17 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import AppStateManager from './AppStateManager';
+import { Student } from './common/models';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
-const stateManager = new AppStateManager();
+const defaultStudents: Student[] = [
+  {name: 'Shu'}, {name: 'Jennie'}, {name: 'Benji'}, {name: 'Lukas'}
+];
 root.render(
   <React.StrictMode>
-    <App initialNavPath="races" />
+    <App initialNavState={ {navPath: 'races'} } initialAppModelState={ {races: [], students: defaultStudents} } />
   </React.StrictMode>
 );
 

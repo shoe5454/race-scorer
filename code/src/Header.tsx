@@ -1,6 +1,6 @@
 type ComponentProps = {
   navPath: string;
-  onNavigateRaces: () => void;
+  onNavigateRaces: (e: React.MouseEvent<HTMLElement>) => void;
 }; 
 
 function Header(props: ComponentProps) {
@@ -14,13 +14,13 @@ function Header(props: ComponentProps) {
     case "add-race":
       return (
         <header>
-          [ <a data-testid="header-races" onClick={props.onNavigateRaces}>Races</a> | Students (TODO) ]
+          [ <a data-testid="header-races" onClick={props.onNavigateRaces} href="">Races</a> | Students (TODO) ]
         </header>
       );    
     case "add-results":
       return (
         <header>
-          [ <a data-testid="header-races" onClick={props.onNavigateRaces}>Races</a> | Students (TODO) ]
+          [ <a data-testid="header-races" onClick={props.onNavigateRaces} href="">Races</a> | Students (TODO) ]
         </header>
       );    
     default:

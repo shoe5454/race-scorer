@@ -1,11 +1,14 @@
-import React from 'react';
-import { render, screen, within } from '@testing-library/react';
-import AppStateManager from './AppStateManager';
 import { Race, Student } from './common/models';
-import { NavState, navReducer, NavAction } from './reducers';
+import { NavState, navReducer, NavAction, AppModelAction, appModelReducer, AppModelState } from './reducers';
 
-const dummyStudent: Student = {
+const dummyStudent1: Student = {
   name: 'Shu'
+}
+const dummyStudent2: Student = {
+  name: 'Jennie'
+}
+const dummyStudent3: Student = {
+  name: 'Benji'
 }
 
 test("navReducer allows valid navPaths", () => {
@@ -36,34 +39,46 @@ test("navReducer does not allow invalid navPaths", () => {
   // navPath = 'foobar' should not be allowed
   const action = { navPath: 'foobar' };
   const result = navReducer({navPath: 'races'}, action);
-  expect(result.navPath).toBe('foobar');  
+  expect(result.navPath).toBe('races');  
 });
 
 test("appModelReducer handles save-race correctly", () => {
-  let action, result: AppModelState;
+  let action: AppModelAction, result: AppModelState, race: Race;
 
-  // Add new race entries to the end of races
   const initialState: AppModelState = {
     races: [],
     students: []
   };
-  const race1: Race = {
-    lanes: [ { name: 'Shu', student: dummyStudent }]
+
+  // Add new race entries to the end of races
+  race = {
+    lanes: [ { name: 'Lane Shu', student: dummyStudent1 }, { name: 'Lane Jennie', student: dummyStudent2 } ]
   };
-  action = { type: 'save-race', race: race1 };
+  action = { type: 'save-race', race: race };
   result = appModelReducer(initialState, action);
   expect(result.races.length).toBe(1);  
-  expect(result.races[0].lanes[0].name).toBe('Shu');
-  const race2: Race = {
-    lanes: []
+  expect(result.races[0].lanes[0].name).toBe('Lane Shu');
+  race = {
+    lanes: [ 
+      { name: 'Lane Shu', student: dummyStudent1 }, 
+      { name: 'Lane Jennie', student: dummyStudent2 },
+      { name: 'Lane Benji', student: dummyStudent3 }, 
+    ]
   };
-  action = { type: 'save-race', race: race2 };
+  action = { type: 'save-race', race: race };
   result = appModelReducer(result, action);
   expect(result.races.length).toBe(2);  
-  expect(result.races[0].lanes[0].name).toBe('Shu');
-  expect(result.races[1].lanes.length).toBe(0);
+  expect(result.races[0].lanes[0].name).toBe('Lane Shu');
+  expect(result.races[1].lanes.length).toBe(3);
 
-  // TODO Adding a race with less than 2 lanes should return an error
+  // Adding a race with less than 2 lanes should return an error
+  race = {
+    lanes: [ { name: 'Lane Shu', student: dummyStudent1 } ]
+  };
+  action = { type: 'save-race', race: race };
+  result = appModelReducer(initialState, action);
+  expect(result.saveRaceError).toBe("Minimum 2 lanes");
+  expect(result.races.length).toBe(0);
 
   // TODO Adding a race whose lanes have the same name should return an error
 
@@ -76,7 +91,7 @@ test("modelReducer handles save-results correctly", () => {
   // Add results to an existing race in races
   existingRace = {
     lanes: [
-      {name: 'Lane1', student: dummyStudent}, {name: 'Lane2', student: dummyStudent},
+      {name: 'Lane1', student: dummyStudent1}, {name: 'Lane2', student: dummyStudent2},
     ]
   };
   initialState = {
@@ -93,7 +108,7 @@ test("modelReducer handles save-results correctly", () => {
   // Adding invalid results should return error
   existingRace = {
     lanes: [
-      {name: 'Lane1', student: dummyStudent}, {name: 'Lane2', student: dummyStudent},
+      {name: 'Lane1', student: dummyStudent1}, {name: 'Lane2', student: dummyStudent2},
     ]
   };
   initialState = {
@@ -119,12 +134,12 @@ test("modelReducer handles save-results correctly", () => {
   // Adding results to a non-existent race should return an error
   existingRace = {
     lanes: [
-      {name: 'Lane1', student: dummyStudent}, {name: 'Lane2', student: dummyStudent},
+      {name: 'Lane1', student: dummyStudent1}, {name: 'Lane2', student: dummyStudent2},
     ]
   };
   nonExistentRace = {
     lanes: [
-      {name: 'Lane1', student: dummyStudent}, {name: 'Lane2', student: dummyStudent},
+      {name: 'Lane1', student: dummyStudent1}, {name: 'Lane2', student: dummyStudent2},
     ]
   };
   initialState = {
@@ -134,4 +149,6 @@ test("modelReducer handles save-results correctly", () => {
   action = { type: 'save-results', race: nonExistentRace, results: [1, 2] };
   result = appModelReducer(initialState, action);
   expect(result.saveResultsError).toBe("Race does not exist");
+
+  // TODO Unrecognized type throws error
 });

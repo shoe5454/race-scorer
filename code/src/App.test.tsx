@@ -3,10 +3,14 @@ import { render, screen, within } from '@testing-library/react';
 import App from './App';
 
 it("integrates with the expected child components", () => {
-  let container, stateManager, raceManager, addRaceManager, addResultsManager;
+  let container, raceManager, addRaceManager, addResultsManager;
+  const appModelState = {
+    races: [],
+    students: []
+  };
 
   // initialNavPath = 'races' should display only RaceManager
-  ({container} = render(<App initialNavPath={'races'} />));
+  ({container} = render(<App initialNavState={{navPath: 'races'}} initialAppModelState={appModelState} />));
   raceManager = within(container).queryByTestId("app-race-manager");
   addRaceManager = within(container).queryByTestId("app-add-race-manager");
   addResultsManager = within(container).queryByTestId("app-add-results-manager");
@@ -16,7 +20,7 @@ it("integrates with the expected child components", () => {
   expect(container).not.toHaveTextContent("Error: Invalid navPath");
 
   // initialNavPath = 'add-race' should display only AddRaceManager
-  ({container} = render(<App initialNavPath={'add-race'} />));
+  ({container} = render(<App initialNavState={{navPath: 'add-race'}} initialAppModelState={appModelState} />));
   raceManager = within(container).queryByTestId("app-race-manager");
   addRaceManager = within(container).queryByTestId("app-add-race-manager");
   addResultsManager = within(container).queryByTestId("app-add-results-manager");
@@ -26,7 +30,7 @@ it("integrates with the expected child components", () => {
   expect(container).not.toHaveTextContent("Error: Invalid navPath");
 
   // initialNavPath = 'add-results' should display only AddResultsManager
-  ({container} = render(<App initialNavPath={'add-results'} />));
+  ({container} = render(<App initialNavState={{navPath: 'add-results'}} initialAppModelState={appModelState} />));
   raceManager = within(container).queryByTestId("app-race-manager");
   addRaceManager = within(container).queryByTestId("app-add-race-manager");
   addResultsManager = within(container).queryByTestId("app-add-results-manager");
@@ -36,7 +40,7 @@ it("integrates with the expected child components", () => {
   expect(container).not.toHaveTextContent("Error: Invalid navPath");
 
   // initialNavPath = 'foobar' should display only error
-  ({container} = render(<App initialNavPath={'foobar'} />));
+  ({container} = render(<App initialNavState={{navPath: 'foobar'}} initialAppModelState={appModelState} />));
   raceManager = within(container).queryByTestId("app-race-manager");
   addRaceManager = within(container).queryByTestId("app-add-race-manager");
   addResultsManager = within(container).queryByTestId("app-add-results-manager");
@@ -46,7 +50,7 @@ it("integrates with the expected child components", () => {
   expect(container).toHaveTextContent("Error: Invalid navPath");
 
   // Should display Header
-  ({container} = render(<App initialNavPath={'races'} />));
+  ({container} = render(<App initialNavState={{navPath: 'races'}} initialAppModelState={appModelState} />));
   const header = within(container).getByTestId("app-header");
   expect(header).toBeVisible();  
 });
