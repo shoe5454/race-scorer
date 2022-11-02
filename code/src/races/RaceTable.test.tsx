@@ -9,14 +9,14 @@ const dummyStudents: Student[] = [
 ];
 
 it("fails gracefully when provided bad props", () => {
-  // If races is empty, display table header with 0 RaceDetailsRows
+  // If races is empty, display table header with 0 RaceDetails
   const {container} = render(<RaceTable races={[]} students={dummyStudents} onAddResults={jest.fn()} />);
   const raceDetailRow = within(container).queryByTestId("race-table-race-details");
   expect(raceDetailRow).toBeNull();
 });
 
 it("integrates with the expected child components", () => {
-  // RaceDetailsRow is present for each race
+  // RaceDetails is present for each race
   const races: Race[] = [
     {lanes: []}, {lanes: []}, {lanes: []}, {lanes: []}
   ];

@@ -7,7 +7,7 @@ type ComponentProps = {
   onAddResults: (race: Race) => void
 }; 
 
-function RaceDetailsRow(props: ComponentProps) {
+function RaceDetails(props: ComponentProps) {
   let results;
   let addResultsButton;
 
@@ -40,4 +40,4 @@ function RaceDetailsRow(props: ComponentProps) {
   );
 }
 
-export default RaceDetailsRow;
+export default RaceDetails;
