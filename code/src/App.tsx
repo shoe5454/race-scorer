@@ -54,8 +54,8 @@ function App(props: ComponentProps) {
   }
 
   return (
-    <div className="App">
-      <div data-testid="app-header">
+    <div>
+      <div data-testid="app-header" className='App-header'>
         <Header navPath={navState.navPath} onNavigateRaces={(e) => {dispatchNavAction({navPath: 'races'}); e.preventDefault(); }} />
       </div>
       {child}

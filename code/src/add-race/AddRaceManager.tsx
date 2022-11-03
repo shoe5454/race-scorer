@@ -40,7 +40,7 @@ function AddRaceManager(props: ComponentProps) {
   );
 }
 
-function saveRace(e: React.MouseEvent<HTMLInputElement>, props: ComponentProps, state: AddRaceState) {
+function saveRace(e: React.MouseEvent<HTMLButtonElement>, props: ComponentProps, state: AddRaceState) {
   const lanes: Lane[] = state.laneStudents.map((laneStudent) => {
     return {name: laneStudent.laneName, student: laneStudent.student!}
   });

@@ -1,6 +1,7 @@
 import React from 'react';
 import { act, render, screen, within } from '@testing-library/react';
 import { Lane, Race, Student } from '../common/models';
+import { LaneStudent } from './models';
 import AddRaceTable from './AddRaceTable';
 
 const dummyStudents: Student[] = [
@@ -10,14 +11,14 @@ const dummyStudents: Student[] = [
 it("integrates with the expected child components", () => {
   let container, laneAssignmentRows, removeLaneButton;
 
-  const twoLaneAssignments: Lane[] = [
-    {name: '1', student: dummyStudents[0]}, 
-    {name: '2', student: dummyStudents[1]}, 
+  const twoLaneAssignments: LaneStudent[] = [
+    {laneName: '1', student: dummyStudents[0]}, 
+    {laneName: '2', student: dummyStudents[1]}, 
   ];
-  const threeLaneAssignments: Lane[] = [
-    {name: '1', student: dummyStudents[0]}, 
-    {name: '2', student: dummyStudents[1]}, 
-    {name: '3', student: dummyStudents[2]}, 
+  const threeLaneAssignments: LaneStudent[] = [
+    {laneName: '1', student: dummyStudents[0]}, 
+    {laneName: '2', student: dummyStudents[1]}, 
+    {laneName: '3', student: dummyStudents[2]}, 
   ];
 
   // LaneAssignment is present for each laneAssignments entry
