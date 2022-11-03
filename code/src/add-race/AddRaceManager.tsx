@@ -31,10 +31,10 @@ function AddRaceManager(props: ComponentProps) {
         />
       </div>
       <div>
-        <button data-testid="add-race-manager-cancel-add-race-button" onClick={props.onCancelAddRace}>Cancel</button>
-        <button data-testid="add-race-manager-add-lane-button" onClick={(e) => dispatch({type: 'add-lane'})}>Add Lane</button>
-        <button data-testid="add-race-manager-save-race-button" onClick={(e) => saveRace(e, props, state)}>Save</button>
-        <div data-testid="add-race-manager-error">{props.saveRaceError}</div>
+        <button className="App-bar-button" data-testid="add-race-manager-cancel-add-race-button" onClick={props.onCancelAddRace}>Cancel</button>
+        <button className="App-bar-button" data-testid="add-race-manager-add-lane-button" onClick={(e) => dispatch({type: 'add-lane'})}>Add Lane</button>
+        <button className="App-bar-button" data-testid="add-race-manager-save-race-button" onClick={(e) => saveRace(e, props, state)}>Save</button>
+        <div className="App-alert" data-testid="add-race-manager-error">{props.saveRaceError}</div>
       </div>
     </div>
   );

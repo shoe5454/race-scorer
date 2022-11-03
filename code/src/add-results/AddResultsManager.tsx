@@ -27,9 +27,9 @@ function AddResultsManager(props: ComponentProps) {
         />
       </div>
       <div>
-        <button data-testid="add-results-manager-cancel-add-results-button" onClick={props.onCancelAddResults}>Cancel</button>
-        <button data-testid="add-results-manager-save-results-button" onClick={(e) => saveResults(e, props, state)}>Save</button>
-        <div data-testid="add-results-manager-error">{props.saveResultsError}</div>
+        <button className="App-bar-button" data-testid="add-results-manager-cancel-add-results-button" onClick={props.onCancelAddResults}>Cancel</button>
+        <button className="App-bar-button" data-testid="add-results-manager-save-results-button" onClick={(e) => saveResults(e, props, state)}>Save</button>
+        <div className="App-alert" data-testid="add-results-manager-error">{props.saveResultsError}</div>
       </div>
     </div>
   );

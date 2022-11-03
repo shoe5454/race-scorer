@@ -11,31 +11,39 @@ const dummyStudent3: Student = {
   name: 'Benji'
 }
 
-test("navReducer allows valid navPaths", () => {
+test("navReducer allows valid navigation targets and clears errors", () => {
   let action: NavAction, result: AppState;
 
   // Allow navigating to Add Race path
   action = new NavAction('add-race');
   result = navReducer({navPath: 'races', races: [], students: []}, action);
   expect(result.navPath).toBe('add-race');  
+  expect(result.saveRaceError).toBeUndefined();
+  expect(result.saveResultsError).toBeUndefined();
   
   // Allow navigating to Add Results path
   action = new NavAction('add-results/0');
   result = navReducer({navPath: 'races', races: [], students: []}, action);
   expect(result.navPath).toBe('add-results/0');  
+  expect(result.saveRaceError).toBeUndefined();
+  expect(result.saveResultsError).toBeUndefined();
   
   // Allow navigating back to Races path from Add Race path
   action = new NavAction('races');
   result = navReducer({navPath: 'add-race', races: [], students: []}, action);
   expect(result.navPath).toBe('races');  
+  expect(result.saveRaceError).toBeUndefined();
+  expect(result.saveResultsError).toBeUndefined();
 
   // Allow navigating back to Races path from Add Results path
   action = new NavAction('races');
   result = navReducer({navPath: 'add-results/0', races: [], students: []}, action);
   expect(result.navPath).toBe('races');  
+  expect(result.saveRaceError).toBeUndefined();
+  expect(result.saveResultsError).toBeUndefined();
 });
 
-test("navReducer does not allow invalid navPaths", () => {
+test("navReducer does not allow invalid navigation targets", () => {
   let action, result;
 
   // navPath = 'foobar' should not be allowed

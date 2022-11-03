@@ -25,7 +25,7 @@ it("fails gracefully when provided bad props", () => {
   addRaceButton = within(container).queryByTestId("race-manager-add-race-button");
   expect(raceTable).toBeNull();
   expect(addRaceButton).toBeVisible();
-  expect(container).toHaveTextContent("No races");
+  expect(container).toHaveTextContent("Got a race to manage? Hit that button below.");
 
 });
 

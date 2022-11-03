@@ -32,6 +32,7 @@ npm test
 5. Some files / functions are getting too long and should be broken up for readability.
 6. Could do with more code comments.
 7. Naming conventions could be improved (IMPORTANT for reasoning about the code)
+8. Limitation: No browser back button support.
 
 ## License
 [MIT](https://choosealicense.com/licenses/mit/)

@@ -9,7 +9,13 @@ const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 const defaultStudents: Student[] = [
-  {name: 'Shu'}, {name: 'Jennie'}, {name: 'Benji'}, {name: 'Lukas'}
+  {name: 'Shu'}, 
+  {name: 'Jennie'}, 
+  {name: 'Benji'}, 
+  {name: 'Lukas'}, 
+  {name: 'Donatello'}, 
+  {name: 'Raphael'}, 
+  {name: 'Michaelangelo'}, 
 ];
 root.render(
   <React.StrictMode>

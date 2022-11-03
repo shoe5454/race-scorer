@@ -56,7 +56,7 @@ export function navReducer(state: AppState, action: NavAction): AppState {
     action.navPath === 'add-race' ||
     action.navPath.startsWith('add-results/')
   ) {
-    return { ...state, navPath: action.navPath};
+    return { ...state, navPath: action.navPath, saveRaceError: undefined, saveResultsError: undefined};
   }
   return { ...state, navPath: state.navPath};
 }
