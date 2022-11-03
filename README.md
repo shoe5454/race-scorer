@@ -27,7 +27,7 @@ npm test
 
 1. Code consistency and auto-formatting lacking
 2. Not too happy with there being no easy way to verify in tests that parameters passed to child components are correct. Requires diving into the child component's implementation details (e.g. DOM elements) to verify expected behaviour in some cases. E.g. AddRaceTable.test.tsx
-3. Thank you useReducer.
+3. Thank you useReducer. However, one limitation that was obvious was that dispatches cannot be chained conditionally. In a scenario where a child component needs to conditionally trigger a navigation state change (which is managed at the top level) AFTER dispatching its own private state change, this would be challenging to implement.
 4. Some TODO items left in tests. Not going to spend too much time completing this as the ideas and approach have been adequately conveyed thru the other tests.
 5. Some files / functions are getting too long and should be broken up for readability.
 6. Could do with lots more code comments.
