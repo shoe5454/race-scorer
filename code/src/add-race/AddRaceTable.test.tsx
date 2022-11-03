@@ -8,7 +8,7 @@ const dummyStudents: Student[] = [
 ];
 
 it("integrates with the expected child components", () => {
-  let container, laneAssignmentRow, removeLaneButton;
+  let container, laneAssignmentRows, removeLaneButton;
 
   const twoLaneAssignments: Lane[] = [
     {name: '1', student: dummyStudents[0]}, 
@@ -22,17 +22,21 @@ it("integrates with the expected child components", () => {
 
   // LaneAssignment is present for each laneAssignments entry
   ({container} = render(<AddRaceTable students={dummyStudents} laneAssignments={twoLaneAssignments} onEditLaneAssignment={jest.fn()} onRemoveLane={jest.fn()} />));
-  laneAssignmentRow = within(container).getAllByTestId("add-race-table-lane-assignments");
-  expect(laneAssignmentRow).toHaveLength(2);
+  laneAssignmentRows = within(container).getAllByTestId("add-race-table-lane-assignments");
+  expect(laneAssignmentRows).toHaveLength(2);
   
-  // LaneAssignment is present with onRemoveLane from props only if the size of laneAssignments is >= 2
+  // LaneAssignment is present with onRemoveLane from props only if the size of laneAssignments is >= 2 (TODO, RaceManager is a better fit to host this logic)
   ({container} = render(<AddRaceTable students={dummyStudents} laneAssignments={twoLaneAssignments} onEditLaneAssignment={jest.fn()} onRemoveLane={jest.fn()} />));
-  laneAssignmentRow = within(container).getByTestId("add-race-table-lane-assignments");
-  removeLaneButton = within(laneAssignmentRow).getAllByTestId("lane-assignment-remove-lane-button"); // I'm not a fan of this, the AddRaceTable test is now dependant on knowing the implementation details of another component: LaneAssignment
-  expect(removeLaneButton).toBeNull();
+  laneAssignmentRows = within(container).getAllByTestId("add-race-table-lane-assignments");
+  for (let row of laneAssignmentRows) {    
+    removeLaneButton = within(row).queryByTestId("lane-assignment-remove-lane-button"); // I'm not a fan of this, the AddRaceTable test is now dependant on knowing the implementation details of another component: LaneAssignment
+    expect(removeLaneButton).toBeNull();
+  }
 
   ({container} = render(<AddRaceTable students={dummyStudents} laneAssignments={threeLaneAssignments} onEditLaneAssignment={jest.fn()} onRemoveLane={jest.fn()} />));
-  laneAssignmentRow = within(container).getByTestId("add-race-table-lane-assignments");
-  removeLaneButton = within(laneAssignmentRow).getAllByTestId("lane-assignment-remove-lane-button"); // I'm not a fan of this, the AddRaceTable test is now dependant on knowing the implementation details of another component: LaneAssignment
-  expect(removeLaneButton).not.toBeNull();
+  laneAssignmentRows = within(container).getAllByTestId("add-race-table-lane-assignments");
+  for (let row of laneAssignmentRows) {
+    removeLaneButton = within(row).getByTestId("lane-assignment-remove-lane-button"); // I'm not a fan of this, the AddRaceTable test is now dependant on knowing the implementation details of another component: LaneAssignment
+    expect(removeLaneButton).toBeVisible();
+  }
 });

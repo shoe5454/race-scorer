@@ -17,6 +17,8 @@ it("fails gracefully when provided bad props", () => {
 */
 
 it("handles optional props correctly", () => {
+  // TODO test for empty students array
+
   // If Remove callback is not present, display row without Remove Lane button
   const {container} = render(<table><tbody><tr><LaneAssignment students={students} laneIndex={0} laneName="" student={null} onEditLaneAssignment={jest.fn()} /></tr></tbody></table>);
   const button = within(container).queryByTestId("lane-assignment-remove-lane-button");
