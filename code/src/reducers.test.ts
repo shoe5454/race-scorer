@@ -20,9 +20,9 @@ test("navReducer allows valid navPaths", () => {
   expect(result.navPath).toBe('add-race');  
   
   // Allow navigating to Add Results path
-  action = new NavAction('add-results');
+  action = new NavAction('add-results/0');
   result = navReducer({navPath: 'races', races: [], students: []}, action);
-  expect(result.navPath).toBe('add-results');  
+  expect(result.navPath).toBe('add-results/0');  
   
   // Allow navigating back to Races path from Add Race path
   action = new NavAction('races');
@@ -31,14 +31,21 @@ test("navReducer allows valid navPaths", () => {
 
   // Allow navigating back to Races path from Add Results path
   action = new NavAction('races');
-  result = navReducer({navPath: 'add-results', races: [], students: []}, action);
+  result = navReducer({navPath: 'add-results/0', races: [], students: []}, action);
   expect(result.navPath).toBe('races');  
 });
 
 test("navReducer does not allow invalid navPaths", () => {
+  let action, result;
+
   // navPath = 'foobar' should not be allowed
-  const action = new NavAction('foobar');
-  const result = navReducer({navPath: 'races', races: [], students: []}, action);
+  action = new NavAction('foobar');
+  result = navReducer({navPath: 'races', races: [], students: []}, action);
+  expect(result.navPath).toBe('races');  
+
+  // navPath = 'add-results' should not be allowed (missing index)
+  action = new NavAction('add-results');
+  result = navReducer({navPath: 'races', races: [], students: []}, action);
   expect(result.navPath).toBe('races');  
 });
 
@@ -105,6 +112,9 @@ test("saveResultsReducer validates before saving", () => {
     races: [ existingRace ],
     students: []
   };
+  action = new SaveResultsAction(existingRace, [1, null]);
+  result = saveResultsReducer(initialState, action);
+  expect(result.saveResultsError).toBe("Missing results");
   action = new SaveResultsAction(existingRace, [1, 2, 3]);
   result = saveResultsReducer(initialState, action);
   expect(result.saveResultsError).toBe("Number of results does not match number of lanes");

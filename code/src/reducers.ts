@@ -31,8 +31,8 @@ export class SaveRaceAction extends AppAction {
 
 export class SaveResultsAction extends AppAction {
   race: Race;
-  results?: number[];
-  constructor(race: Race, results?: number[]) {
+  results?: Array<number | null>;
+  constructor(race: Race, results?: Array<number | null>) {
     super();
     this.race = race;
     this.results = results;
@@ -51,14 +51,14 @@ export function appReducer(state: AppState, action: AppAction): AppState {
 }
 
 export function navReducer(state: AppState, action: NavAction): AppState {
-  switch (action.navPath) {
-    case 'races':
-    case 'add-race':
-    case 'add-results':
-      return { ...state, navPath: action.navPath};
-    default:
-      return { ...state, navPath: state.navPath};
-  }      
+  if (
+    action.navPath === 'races' ||
+    action.navPath === 'add-race' ||
+    action.navPath.startsWith('add-results/')
+  ) {
+    return { ...state, navPath: action.navPath};
+  }
+  return { ...state, navPath: state.navPath};
 }
 
 export function saveRaceReducer(state: AppState, action: SaveRaceAction): AppState {
@@ -92,6 +92,10 @@ export function saveResultsReducer(state: AppState, action: SaveResultsAction): 
     return { ...state, saveResultsError: "Race does not exist" };
   if (action.results!.length != foundRace.lanes.length)
     return { ...state, saveResultsError: "Number of results does not match number of lanes" };
+  for (let i = 1; i < action.results!.length; i++) {
+    if (action.results![i] === null)
+      return { ...state, saveResultsError: "Missing results" };
+  }
   const copyOfResults  = Object.assign([], action.results);
   copyOfResults.sort();
   if (copyOfResults[0] != 1)
@@ -105,7 +109,7 @@ export function saveResultsReducer(state: AppState, action: SaveResultsAction): 
   const newRaces: Race[] = state.races.map(race => {
     if (race === foundRace) {
       for (let i = 0; i < race.lanes.length; i++) {
-        race.lanes[i].result = action.results![i];
+        race.lanes[i].result = action.results![i]!;
       }              
     }
     return race;

@@ -26,9 +26,9 @@ it('displays the header correctly', () => {
   tab.click();
   expect(mockOnNavigateRaces).toHaveBeenCalledTimes(1);
 
-  // navPath = 'add-results' should display and enable the Races tab
+  // navPath = 'add-results/*' should display and enable the Races tab
   mockOnNavigateRaces = jest.fn();
-  ({container} = render(<Header navPath="add-results" onNavigateRaces={mockOnNavigateRaces} />));
+  ({container} = render(<Header navPath="add-results/0" onNavigateRaces={mockOnNavigateRaces} />));
   tab = within(container).getByText("Races");
   tab.click();
   expect(mockOnNavigateRaces).toHaveBeenCalledTimes(1);
@@ -37,7 +37,7 @@ it('displays the header correctly', () => {
 it("integrates with the expected events", () => {
   // Races link is hooked to the onNavigateRaces callback
   const mockOnNavigateRaces = jest.fn();
-  const {container} = render(<Header navPath="add-results" onNavigateRaces={mockOnNavigateRaces} />);
+  const {container} = render(<Header navPath="add-results/0" onNavigateRaces={mockOnNavigateRaces} />);
   const tab = within(container).getByTestId("header-races");
   tab.click();
   expect(mockOnNavigateRaces).toHaveBeenCalledTimes(1);  

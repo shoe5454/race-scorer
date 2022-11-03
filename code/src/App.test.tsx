@@ -5,7 +5,7 @@ import App from './App';
 it("integrates with the expected child components", () => {
   let container, raceManager, addRaceManager, addResultsManager;
   const appState = {
-    races: [],
+    races: [ { lanes: [] } ],
     students: []
   };
 
@@ -29,8 +29,8 @@ it("integrates with the expected child components", () => {
   expect(addResultsManager).toBeNull();
   expect(container).not.toHaveTextContent("Error: Invalid navPath");
 
-  // initialNavPath = 'add-results' should display only AddResultsManager
-  ({container} = render(<App initialState={{...appState, navPath: 'add-results'}} />));
+  // initialNavPath = 'add-results/*' should display only AddResultsManager
+  ({container} = render(<App initialState={{...appState, navPath: 'add-results/0'}} />));
   raceManager = within(container).queryByTestId("app-race-manager");
   addRaceManager = within(container).queryByTestId("app-add-race-manager");
   addResultsManager = within(container).queryByTestId("app-add-results-manager");
@@ -38,6 +38,8 @@ it("integrates with the expected child components", () => {
   expect(addRaceManager).toBeNull();
   expect(addResultsManager).toBeVisible();
   expect(container).not.toHaveTextContent("Error: Invalid navPath");
+
+  // initialNavPath = 'add-results/*' should display only error if the race index is not valid (TODO)
 
   // initialNavPath = 'foobar' should display only error
   ({container} = render(<App initialState={{...appState, navPath: 'foobar'}} />));

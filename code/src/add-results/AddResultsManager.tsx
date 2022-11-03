@@ -5,7 +5,7 @@ import { AddResultsState, editResultsReducer } from "./reducers";
 
 type ComponentProps = {
   race: Race;
-  onSaveResults: (lanes: Lane[], results: Array<number | null>) => void;
+  onSaveResults: (results: Array<number | null>) => void;
   onCancelAddResults: () => void;
   saveResultsError?: string;
 }; 
@@ -39,7 +39,7 @@ function saveRace(e: React.MouseEvent<HTMLButtonElement>, props: ComponentProps,
   const results = state.laneResults.map(laneResult => {
     return laneResult.result;
   });
-  props.onSaveResults!(props.race.lanes, results);
+  props.onSaveResults!(results);
 }
 
 export default AddResultsManager;
