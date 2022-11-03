@@ -21,7 +21,7 @@ it("integrates with the expected child components", () => {
     {lanes: []}, {lanes: []}, {lanes: []}, {lanes: []}
   ];
   const {container} = render(<RaceTable races={races} students={dummyStudents} onAddResults={jest.fn()} />);
-  const raceDetailRow = within(container).queryAllByTestId("race-table-race-details");
+  const raceDetailRow = within(container).getAllByTestId("race-table-race-details");
   expect(raceDetailRow).toHaveLength(4);
-  
+ 
 });
