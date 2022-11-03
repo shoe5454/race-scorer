@@ -30,7 +30,8 @@ npm test
 3. Thank you useReducer. However, one limitation that was obvious was that dispatches cannot be chained conditionally. In a scenario where a child component needs to conditionally trigger a navigation state change (which is managed at the top level) AFTER dispatching its own private state change, this would be challenging to implement.
 4. Some TODO items left in tests. Not going to spend too much time completing this as the ideas and approach have been adequately conveyed thru the other tests.
 5. Some files / functions are getting too long and should be broken up for readability.
-6. Could do with lots more code comments.
+6. Could do with more code comments.
+7. Naming conventions could be improved (IMPORTANT for reasoning about the code)
 
 ## License
 [MIT](https://choosealicense.com/licenses/mit/)

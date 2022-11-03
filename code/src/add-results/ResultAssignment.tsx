@@ -2,11 +2,10 @@ import React from "react";
 import { Student, Race, Lane } from "../common/models";
 
 type ComponentProps = {
-  laneIndex: number;
   numberOfLanes: number;
   lane: Lane;
   result: number | null;
-  onEditResultAssignment: (laneIndex: number, result: number | null | undefined) => void;
+  onEditResultAssignment: (lane: Lane, result: number | null | undefined) => void;
 }; 
 
 function ResultAssignment(props: ComponentProps) {
@@ -33,7 +32,7 @@ function ResultAssignment(props: ComponentProps) {
 }
 
 function onResultChange(e: React.ChangeEvent<HTMLSelectElement>, props: ComponentProps) {
-  props.onEditResultAssignment(props.laneIndex, parseInt(e.target.value));
+  props.onEditResultAssignment(props.lane, parseInt(e.target.value));
 }
 
 export default ResultAssignment;

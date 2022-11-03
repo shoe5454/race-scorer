@@ -21,7 +21,7 @@ it("displays the result details correctly", () => {
   };
   ({container} = render(
     <table><tbody><tr>
-      <ResultAssignment laneIndex={0} numberOfLanes={3} lane={lane} result={2} onEditResultAssignment={jest.fn()} />
+      <ResultAssignment numberOfLanes={3} lane={lane} result={2} onEditResultAssignment={jest.fn()} />
     </tr></tbody></table>)
   );
 
@@ -40,19 +40,19 @@ it("displays the result details correctly", () => {
 
 it("integrates with the expected events", () => {
   // Result changes are hooked to the onEditResultAssignment callback with the correct parameters
-  const mockOnEditResultAssignment = jest.fn((laneIndex, result) => {});
+  const mockOnEditResultAssignment = jest.fn((lane, result) => {});
   const lane = {
     name: 'Lane A',
     student: students[0]
   };
   const {container} = render(
     <table><tbody><tr>
-      <ResultAssignment laneIndex={1} numberOfLanes={2} lane={lane} result={2} onEditResultAssignment={mockOnEditResultAssignment} />
+      <ResultAssignment numberOfLanes={2} lane={lane} result={2} onEditResultAssignment={mockOnEditResultAssignment} />
     </tr></tbody></table>
   );
   const result = within(container).getByTestId("result-assignment-result");
   userEvent.selectOptions(result, "2");
   expect(mockOnEditResultAssignment.mock.calls.length).toBe(1);
-  expect(mockOnEditResultAssignment.mock.calls[0][0]).toBe(1);
+  expect(mockOnEditResultAssignment.mock.calls[0][0]).toBe(lane);
   expect(mockOnEditResultAssignment.mock.calls[0][1]).toBe(2);  
 });

@@ -1,6 +1,8 @@
 import React from 'react';
 import { act, render, screen, within } from '@testing-library/react';
 import { Lane, Race, Student } from '../common/models';
+import AddResultsTable from './AddResultsTable';
+import { LaneResult } from './models';
 
 const dummyStudents: Student[] = [
   {name: 'Shu'}, {name: 'Jennie'}, {name: 'Benji'}
@@ -19,13 +21,13 @@ it("integrates with the expected child components", () => {
       { name: 'L1', student: dummyStudents[0] },
       { name: 'L2', student: dummyStudents[1] }
     ]
-  }
+  };
   const resultAssignments: LaneResult[] = [
-    {laneName: '1', result: 2}, 
-    {laneName: '2', result: 1}, 
+    {lane: race.lanes[0], result: 2}, 
+    {lane: race.lanes[1], result: 1}, 
   ];
   const {container} = render(
-    <AddResultsTable students={dummyStudents} race={race} resultAssignments={resultAssignments} onEditResultAssignment={jest.fn()}/>
+    <AddResultsTable race={race} resultAssignments={resultAssignments} onEditResultAssignment={jest.fn()}/>
   );
   const resultAssignmentRows = within(container).getAllByTestId("add-results-table-result-assignments");
   expect(resultAssignmentRows).toHaveLength(2);
