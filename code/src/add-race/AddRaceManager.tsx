@@ -6,7 +6,7 @@ import { addRaceReducer, AddRaceState } from "./reducers";
 
 type ComponentProps = {
   students: Student[];
-  onSaveRace: (race: Race) => void;
+  onSaveRace: (laneNames: string[], students: Array<Student | null>) => void;
   onCancelAddRace: () => void;
   saveRaceError?: string;
 }; 
@@ -41,11 +41,13 @@ function AddRaceManager(props: ComponentProps) {
 }
 
 function saveRace(e: React.MouseEvent<HTMLButtonElement>, props: ComponentProps, state: AddRaceState) {
-  const lanes: Lane[] = state.laneStudents.map((laneStudent) => {
-    return {name: laneStudent.laneName, student: laneStudent.student!}
+  const laneNames = state.laneStudents.map(laneStudent => {
+    return laneStudent.laneName;
   });
-  const race: Race = { lanes: lanes };
-  props.onSaveRace!(race);
+  const students = state.laneStudents.map(laneStudent => {
+    return laneStudent.student;
+  });
+  props.onSaveRace!(laneNames, students);
 }
 
 export default AddRaceManager;

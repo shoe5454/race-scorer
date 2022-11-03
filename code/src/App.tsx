@@ -1,30 +1,28 @@
-import React, { useReducer } from 'react';
+import React, { useEffect, useReducer } from 'react';
 import AddRaceManager from './add-race/AddRaceManager';
 import AddResultsManager from './add-results/AddResultsManager';
 import './App.css';
-import { Race } from './common/models';
+import { Race, Student } from './common/models';
 import Header from './Header';
 import RaceManager from './races/RaceManager';
-import { appModelReducer, AppModelState, navReducer, NavState } from './reducers';
+import { AppState, appReducer, NavAction, SaveRaceAction } from './reducers';
 
 type ComponentProps = {
-  initialNavState: NavState;
-  initialAppModelState: AppModelState;
+  initialState: AppState;
 };
 
 function App(props: ComponentProps) {
-  const [navState, dispatchNavAction] = useReducer(navReducer, props.initialNavState);
-  const [appModelState, dispatchAppModelAction] = useReducer(appModelReducer, props.initialAppModelState);
+  const [state, dispatch] = useReducer(appReducer, props.initialState);
 
   let child;
-  switch (navState.navPath) {
+  switch (state.navPath) {
     case "races":
       child = (
         <div data-testid="app-race-manager">
           <RaceManager 
-            races={appModelState.races} students={appModelState.students} 
-            onAddRace={() => dispatchNavAction({navPath: 'add-race'})} 
-            onAddResults={() => dispatchNavAction({navPath: 'add-results'})} />
+            races={state.races} students={state.students} 
+            onAddRace={() => dispatch(new NavAction('add-race'))} 
+            onAddResults={() => dispatch(new NavAction('add-results'))} />
         </div>
       );
       break;
@@ -32,9 +30,10 @@ function App(props: ComponentProps) {
       child = (
         <div data-testid="app-add-race-manager">
           <AddRaceManager 
-            students={appModelState.students}
-            onSaveRace={(race: Race) => dispatchAppModelAction({ type: 'save-race', race: race })} 
-            onCancelAddRace={() => dispatchNavAction({navPath: 'races'})} />
+            students={state.students}
+            onSaveRace={(laneNames: string[], students: Array<Student | null>) => dispatch(new SaveRaceAction(laneNames, students))} 
+            onCancelAddRace={() => dispatch(new NavAction('races'))} 
+            saveRaceError={state.saveRaceError} />
         </div>
       );
       break;
@@ -56,7 +55,7 @@ function App(props: ComponentProps) {
   return (
     <div>
       <div data-testid="app-header" className='App-header'>
-        <Header navPath={navState.navPath} onNavigateRaces={(e) => {dispatchNavAction({navPath: 'races'}); e.preventDefault(); }} />
+        <Header navPath={state.navPath} onNavigateRaces={(e) => {dispatch(new NavAction('races')); e.preventDefault(); }} />
       </div>
       {child}
     </div>

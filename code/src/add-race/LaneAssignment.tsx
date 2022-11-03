@@ -23,7 +23,7 @@ function LaneAssignment(props: ComponentProps) {
   });
   const student = (
     <td>
-      <select data-testid="lane-assignment-student" value={props.student?.name} onChange={(e) => onStudentChange(e, props)}>
+      <select data-testid="lane-assignment-student" value={props.student === null ? "" : props.student.name} onChange={(e) => onStudentChange(e, props)}>
         <option value="" key="none"></option>
         {studentOptions}
       </select>

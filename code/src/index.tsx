@@ -13,7 +13,7 @@ const defaultStudents: Student[] = [
 ];
 root.render(
   <React.StrictMode>
-    <App initialNavState={ {navPath: 'races'} } initialAppModelState={ {races: [], students: defaultStudents} } />
+    <App initialState={ {navPath: 'races', races: [], students: defaultStudents } } />
   </React.StrictMode>
 );
 
