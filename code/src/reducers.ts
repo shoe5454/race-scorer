@@ -114,5 +114,5 @@ export function saveResultsReducer(state: AppState, action: SaveResultsAction): 
     }
     return race;
   });
-  return { ...state, races: newRaces };
+  return { ...state, races: newRaces, saveResultsError: undefined, navPath: 'races' };
 }

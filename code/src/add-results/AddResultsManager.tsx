@@ -28,14 +28,14 @@ function AddResultsManager(props: ComponentProps) {
       </div>
       <div>
         <button data-testid="add-results-manager-cancel-add-results-button" onClick={props.onCancelAddResults}>Cancel</button>
-        <button data-testid="add-results-manager-save-results-button" onClick={(e) => saveRace(e, props, state)}>Save</button>
+        <button data-testid="add-results-manager-save-results-button" onClick={(e) => saveResults(e, props, state)}>Save</button>
         <div data-testid="add-results-manager-error">{props.saveResultsError}</div>
       </div>
     </div>
   );
 }
 
-function saveRace(e: React.MouseEvent<HTMLButtonElement>, props: ComponentProps, state: AddResultsState) {
+function saveResults(e: React.MouseEvent<HTMLButtonElement>, props: ComponentProps, state: AddResultsState) {
   const results = state.laneResults.map(laneResult => {
     return laneResult.result;
   });

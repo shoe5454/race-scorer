@@ -41,7 +41,8 @@ function App(props: ComponentProps) {
         <AddResultsManager 
           race={state.races[raceIndex]} 
           onSaveResults={(results: Array<number | null>) => dispatch(new SaveResultsAction(state.races[raceIndex], results))} 
-          onCancelAddResults={() => dispatch(new NavAction('races'))} />
+          onCancelAddResults={() => dispatch(new NavAction('races'))} 
+          saveResultsError={state.saveResultsError} />
       </div>
     );
   } else {
