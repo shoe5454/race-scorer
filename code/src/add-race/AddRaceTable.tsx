@@ -1,11 +1,7 @@
 import React from "react";
 import { Student, Race, Lane } from "../common/models";
 import LaneAssignment from "./LaneAssignment";
-
-type LaneStudent = {
-  laneName: string;
-  student: Student | null;
-};
+import { LaneStudent } from "./models";
 
 type ComponentProps = {
   students: Student[];

@@ -13,7 +13,7 @@ const dummyStudents: Student[] = [
 it("fails gracefully when provided bad props", () => {
   let container, raceTable, addRaceButton;
 
-  // Empty students is not ok if there are races, display error and hide RaceTable
+  // Empty students is not ok if there are races, display error and hide RaceTable (TODO consider moving this into RaceDetails component)
   ({container} = render(<RaceManager students={[]} races={dummyRaces} onAddRace={jest.fn()} onAddResults={jest.fn()} />));
   raceTable = within(container).queryByTestId("race-manager-race-table");
   expect(raceTable).toBeNull();

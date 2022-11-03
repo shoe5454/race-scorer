@@ -2,6 +2,7 @@ import React, { useReducer } from 'react';
 import AddRaceManager from './add-race/AddRaceManager';
 import AddResultsManager from './add-results/AddResultsManager';
 import './App.css';
+import { Race } from './common/models';
 import Header from './Header';
 import RaceManager from './races/RaceManager';
 import { appModelReducer, AppModelState, navReducer, NavState } from './reducers';
@@ -30,7 +31,10 @@ function App(props: ComponentProps) {
     case "add-race":
       child = (
         <div data-testid="app-add-race-manager">
-          <AddRaceManager />
+          <AddRaceManager 
+            students={appModelState.students}
+            onSaveRace={(race: Race) => dispatchAppModelAction({ type: 'save-race', race: race })} 
+            onCancelAddRace={() => dispatchNavAction({navPath: 'races'})} />
         </div>
       );
       break;

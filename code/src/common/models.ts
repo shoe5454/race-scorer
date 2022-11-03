@@ -1,5 +1,3 @@
-import { ReadVResult } from "fs";
-
 export type Race = {
   lanes: Lane[];
 }

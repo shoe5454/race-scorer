@@ -30,6 +30,7 @@ npm test
 3. Thank you useReducer.
 4. Some TODO items left in tests. Not going to spend too much time completing this as the ideas and approach have been adequately conveyed thru the other tests.
 5. Some files / functions are getting too long and should be broken up for readability.
+6. Could do with lots more code comments.
 
 ## License
 [MIT](https://choosealicense.com/licenses/mit/)
